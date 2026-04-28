@@ -2,8 +2,18 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Paperclip, ArrowUp, X, FileText, Image as ImageIcon, FileType2 } from "lucide-react";
+import {
+  Paperclip,
+  ArrowUp,
+  X,
+  FileText,
+  Image as ImageIcon,
+  FileType2,
+  BookOpen,
+} from "lucide-react";
+import ReactMarkdown, { type Components } from "react-markdown";
 import { readFileAsAttachment, formatBytes, type Attachment } from "@/lib/files";
+import { VOICE_REFERENCES } from "@/lib/voice-references";
 
 type Property = "pittsburgh" | "des_plaines";
 
@@ -61,6 +71,7 @@ export default function Home() {
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
+  const [voiceRefOpen, setVoiceRefOpen] = useState<Property | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -214,6 +225,7 @@ export default function Home() {
       <Header
         active={property}
         onChange={handlePropertyChange}
+        onOpenVoiceRef={(p) => setVoiceRefOpen(p)}
         streaming={streaming}
       />
 
@@ -274,6 +286,11 @@ export default function Home() {
           property={activeProperty}
         />
       </main>
+
+      <VoiceReferenceSheet
+        property={voiceRefOpen}
+        onClose={() => setVoiceRefOpen(null)}
+      />
     </div>
   );
 }
@@ -281,10 +298,12 @@ export default function Home() {
 function Header({
   active,
   onChange,
+  onOpenVoiceRef,
   streaming,
 }: {
   active: Property;
   onChange: (p: Property) => void;
+  onOpenVoiceRef: (p: Property) => void;
   streaming: boolean;
 }) {
   return (
@@ -294,7 +313,11 @@ function Header({
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
         <Brand />
 
-        <PropertySelector active={active} onChange={onChange} />
+        <PropertySelector
+          active={active}
+          onChange={onChange}
+          onOpenVoiceRef={onOpenVoiceRef}
+        />
 
         <div className="hidden items-center gap-4 lg:flex">
           <StatusBadge streaming={streaming} />
@@ -350,9 +373,11 @@ function StatusBadge({ streaming }: { streaming: boolean }) {
 function PropertySelector({
   active,
   onChange,
+  onOpenVoiceRef,
 }: {
   active: Property;
   onChange: (p: Property) => void;
+  onOpenVoiceRef: (p: Property) => void;
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -360,19 +385,28 @@ function PropertySelector({
       {PROPERTIES.map((p) => {
         const selected = p.id === active;
         return (
-          <button
-            key={p.id}
-            onClick={() => onChange(p.id)}
-            title={p.voice}
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition-[background,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-              selected
-                ? "bg-aurora-green text-midnight"
-                : "border border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground"
-            }`}
-            style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
-          >
-            <span className="text-[13px]">{p.label}</span>
-          </button>
+          <div key={p.id} className="inline-flex items-center gap-1">
+            <button
+              onClick={() => onChange(p.id)}
+              title={p.voice}
+              className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition-[background,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                selected
+                  ? "bg-aurora-green text-midnight"
+                  : "border border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground"
+              }`}
+              style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
+            >
+              <span className="text-[13px]">{p.label}</span>
+            </button>
+            <button
+              onClick={() => onOpenVoiceRef(p.id)}
+              title={`View ${p.label} voice reference`}
+              aria-label={`View ${p.label} voice reference`}
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-aurora-violet hover:bg-accent hover:text-aurora-violet focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <BookOpen className="h-3.5 w-3.5" strokeWidth={2.2} />
+            </button>
+          </div>
         );
       })}
       {COMING_SOON.map((p) => (
@@ -665,7 +699,7 @@ function DropOverlay() {
       }}
     >
       <div className="rounded-xl border-2 border-dashed border-aurora-green bg-popover px-8 py-6 shadow-xl">
-        <div className="eyebrow text-aurora-green">Drop to attach</div>
+        <div className="eyebrow text-aurora-violet">Drop to attach</div>
         <div
           className="mt-1 text-2xl text-foreground"
           style={{ fontFamily: MAGNETIK, fontWeight: 800 }}
@@ -676,3 +710,149 @@ function DropOverlay() {
     </div>
   );
 }
+
+function VoiceReferenceSheet({
+  property,
+  onClose,
+}: {
+  property: Property | null;
+  onClose: () => void;
+}) {
+  const open = property !== null;
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open, onClose]);
+
+  const propertyLabel =
+    property === "pittsburgh"
+      ? "Pittsburgh"
+      : property === "des_plaines"
+        ? "Des Plaines"
+        : "";
+  const content = property ? VOICE_REFERENCES[property] : "";
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        aria-hidden={!open}
+        onClick={onClose}
+        className={`fixed inset-0 z-[var(--z-modal)] bg-foreground/30 backdrop-blur-[2px] transition-opacity duration-[var(--duration-slow)] ease-[var(--ease-standard)] ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+
+      {/* Panel */}
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label={
+          open ? `${propertyLabel} voice reference` : "Voice reference"
+        }
+        className={`fixed right-0 top-0 z-[calc(var(--z-modal)+1)] flex h-full w-full max-w-[640px] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-[var(--duration-slower)] ease-[var(--ease-standard)] ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
+          <div>
+            <div className="eyebrow text-aurora-violet">Voice reference</div>
+            <div
+              className="text-[15px]"
+              style={{ fontFamily: MAGNETIK, fontWeight: 700 }}
+            >
+              {propertyLabel}
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Close voice reference"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
+          >
+            <X className="h-4 w-4" strokeWidth={2.2} />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-6 py-8">
+          <div className="mx-auto max-w-prose">
+            {open && (
+              <ReactMarkdown components={voiceMarkdownComponents}>
+                {content}
+              </ReactMarkdown>
+            )}
+          </div>
+        </div>
+      </aside>
+    </>
+  );
+}
+
+const voiceMarkdownComponents: Components = {
+  h1: ({ children }) => (
+    <h1
+      className="text-balance text-[36px] leading-[1.05] tracking-[-0.01em] text-foreground"
+      style={{ fontFamily: MAGNETIK, fontWeight: 900 }}
+    >
+      {children}
+    </h1>
+  ),
+  h2: ({ children }) => (
+    <h2
+      className="mt-12 text-[22px] leading-[1.2] text-foreground"
+      style={{ fontFamily: MAGNETIK, fontWeight: 700 }}
+    >
+      {children}
+    </h2>
+  ),
+  h3: ({ children }) => (
+    <h3
+      className="mt-8 text-[18px] leading-[1.3] text-foreground"
+      style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
+    >
+      {children}
+    </h3>
+  ),
+  p: ({ children }) => (
+    <p className="mt-4 text-[14px] leading-relaxed text-foreground/85">
+      {children}
+    </p>
+  ),
+  // DCP rule: no italics. Render <em> as a small caption-style block,
+  // typically used for the date subtitle.
+  em: ({ children }) => (
+    <span
+      className="block text-[12px] leading-relaxed text-foreground/55"
+      style={{ fontStyle: "normal" }}
+    >
+      {children}
+    </span>
+  ),
+  strong: ({ children }) => (
+    <strong className="font-semibold text-foreground">{children}</strong>
+  ),
+  ul: ({ children }) => (
+    <ul className="mt-4 flex flex-col gap-2">{children}</ul>
+  ),
+  li: ({ children }) => (
+    <li className="flex items-start gap-3 text-[14px] leading-relaxed text-foreground/85">
+      <span aria-hidden className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-aurora-violet" />
+      <span className="flex-1">{children}</span>
+    </li>
+  ),
+  hr: () => <hr className="my-8 border-border" />,
+  blockquote: ({ children }) => (
+    <blockquote className="mt-4 border-l-2 border-aurora-violet pl-4 text-[14px] leading-relaxed text-foreground/75">
+      {children}
+    </blockquote>
+  ),
+};
