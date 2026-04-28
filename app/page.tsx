@@ -359,14 +359,14 @@ function Header({
 
 function Brand() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-5">
       <Image
         src="/logos/dcp-logo-light.svg"
-        alt="DCP"
-        width={64}
-        height={64}
+        alt="DCP — Doner Colle Partners"
+        width={156}
+        height={96}
         priority
-        className="shrink-0"
+        className="h-14 w-auto shrink-0 sm:h-16"
       />
       <div className="leading-[1.05]">
         <div className="eyebrow text-aurora-violet">
