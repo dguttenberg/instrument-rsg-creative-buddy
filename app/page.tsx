@@ -10,6 +10,8 @@ import {
   Image as ImageIcon,
   FileType2,
   BookOpen,
+  ChevronDown,
+  Check,
 } from "lucide-react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import { readFileAsAttachment, formatBytes, type Attachment } from "@/lib/files";
@@ -340,16 +342,11 @@ function Header({
 }) {
   return (
     <header className="sticky top-0 z-[var(--z-sticky)] border-b border-border bg-background/85 backdrop-blur-md">
-      <div className="mx-auto w-full max-w-7xl px-8">
-        {/* Top row: brand + status */}
-        <div className="flex flex-col items-start gap-5 py-7 sm:flex-row sm:items-center sm:justify-between">
-          <Brand />
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-start gap-4 px-8 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+        <Brand />
+        <div className="flex w-full flex-wrap items-center justify-between gap-3 sm:w-auto sm:gap-5">
           <StatusBadge streaming={streaming} />
-        </div>
-
-        {/* Selector row */}
-        <div className="border-t border-border/60 py-4">
-          <PropertySelector
+          <PropertyMenu
             active={active}
             onChange={onChange}
             onOpenVoiceRef={onOpenVoiceRef}
@@ -362,21 +359,21 @@ function Header({
 
 function Brand() {
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-4">
       <Image
         src="/logos/dcp-logo-light.svg"
         alt="DCP"
-        width={64}
-        height={64}
+        width={48}
+        height={48}
         priority
         className="shrink-0"
       />
-      <div className="leading-[1.05]">
+      <div className="leading-[1.1]">
         <div className="eyebrow text-aurora-violet">
           Rivers Casino &amp; Resorts
         </div>
         <div
-          className="mt-1 text-[26px] tracking-[-0.01em]"
+          className="mt-0.5 text-[22px] tracking-[-0.01em]"
           style={{ fontFamily: MAGNETIK, fontWeight: 700 }}
         >
           Copywriting companion
@@ -388,7 +385,7 @@ function Brand() {
 
 function StatusBadge({ streaming }: { streaming: boolean }) {
   return (
-    <div className="flex items-center gap-3 text-foreground/80">
+    <div className="flex items-center gap-2.5 text-foreground/80">
       <span
         className={`text-aurora-green text-base leading-none ${streaming ? "pulse-dot" : ""}`}
         aria-hidden
@@ -396,20 +393,20 @@ function StatusBadge({ streaming }: { streaming: boolean }) {
         ●
       </span>
       <span
-        className="text-[14px]"
+        className="text-[13px]"
         style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
       >
         {streaming ? "Drafting" : "Ready"}
       </span>
-      <span className="h-4 w-px bg-border" />
-      <span className="font-mono text-[11px] text-muted-foreground">
-        claude-sonnet-4-6
+      <span className="h-3 w-px bg-border" />
+      <span className="font-mono text-[10px] text-muted-foreground">
+        sonnet-4-6
       </span>
     </div>
   );
 }
 
-function PropertySelector({
+function PropertyMenu({
   active,
   onChange,
   onOpenVoiceRef,
@@ -418,36 +415,122 @@ function PropertySelector({
   onChange: (p: Property) => void;
   onOpenVoiceRef: (p: Property) => void;
 }) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const activeProperty = PROPERTIES.find((p) => p.id === active)!;
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-      <span className="eyebrow text-aurora-violet mr-1">Property</span>
-      {PROPERTIES.map((p) => {
-        const selected = p.id === active;
-        return (
-          <div key={p.id} className="inline-flex items-center gap-1.5">
-            <button
-              onClick={() => onChange(p.id)}
-              title={p.voice}
-              className={`inline-flex items-center gap-2 rounded-full px-5 py-2 transition-[background,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                selected
-                  ? "bg-aurora-green text-midnight"
-                  : "border border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground"
-              }`}
-              style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
+    <div ref={wrapRef} className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className="inline-flex items-center gap-2 rounded-full bg-aurora-green px-5 py-2 text-midnight transition-colors duration-[var(--duration-base)] ease-[var(--ease-standard)] hover:bg-aurora-green-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        <span
+          className="text-[14px]"
+          style={{ fontFamily: MAGNETIK, fontWeight: 700 }}
+        >
+          {activeProperty.label}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 transition-transform duration-[var(--duration-base)] ${
+            open ? "rotate-180" : ""
+          }`}
+          strokeWidth={2.4}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="absolute right-0 top-[calc(100%+10px)] z-[var(--z-dropdown)] w-[380px] overflow-hidden rounded-xl border border-border bg-popover shadow-xl"
+        >
+          <div className="border-b border-border/70 px-5 py-3">
+            <div className="eyebrow text-aurora-violet">Choose a property</div>
+            <div
+              className="mt-0.5 text-[13px] text-foreground/70"
+              style={{ fontFamily: MAGNETIK, fontWeight: 400 }}
             >
-              <span className="text-[14px]">{p.label}</span>
-            </button>
-            <button
-              onClick={() => onOpenVoiceRef(p.id)}
-              title={`View ${p.label} voice reference`}
-              aria-label={`View ${p.label} voice reference`}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-aurora-violet hover:bg-accent hover:text-aurora-violet focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              <BookOpen className="h-4 w-4" strokeWidth={2.2} />
-            </button>
+              Switching clears the current conversation.
+            </div>
           </div>
-        );
-      })}
+          <ul>
+            {PROPERTIES.map((p) => {
+              const selected = p.id === active;
+              return (
+                <li
+                  key={p.id}
+                  className="flex items-stretch border-b border-border/50 last:border-b-0"
+                >
+                  <button
+                    role="menuitem"
+                    onClick={() => {
+                      onChange(p.id);
+                      setOpen(false);
+                    }}
+                    className={`flex flex-1 items-start gap-3 px-5 py-3.5 text-left transition-colors hover:bg-accent ${
+                      selected ? "bg-accent/40" : ""
+                    }`}
+                  >
+                    <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center">
+                      {selected ? (
+                        <Check
+                          className="h-4 w-4 text-aurora-green"
+                          strokeWidth={3}
+                        />
+                      ) : (
+                        <span className="h-1.5 w-1.5 rounded-full bg-border" />
+                      )}
+                    </span>
+                    <span className="flex-1">
+                      <span
+                        className="block text-[15px]"
+                        style={{
+                          fontFamily: MAGNETIK,
+                          fontWeight: selected ? 700 : 600,
+                        }}
+                      >
+                        {p.label}
+                      </span>
+                      <span className="mt-1 block text-[12px] leading-relaxed text-foreground/65">
+                        {p.voice}
+                      </span>
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      onOpenVoiceRef(p.id);
+                      setOpen(false);
+                    }}
+                    title={`View ${p.label} voice reference`}
+                    aria-label={`View ${p.label} voice reference`}
+                    className="flex w-12 shrink-0 items-center justify-center border-l border-border/50 text-foreground/55 transition-colors hover:bg-accent hover:text-aurora-violet"
+                  >
+                    <BookOpen className="h-4 w-4" strokeWidth={2.2} />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
