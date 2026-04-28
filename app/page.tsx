@@ -419,9 +419,9 @@ function EmptyState({
           <li key={ex}>
             <button
               onClick={() => onPick(ex)}
-              className="group flex w-full items-start gap-3 rounded-xl border border-border bg-card p-4 text-left transition-[background,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] hover:border-aurora-green/50 hover:bg-accent"
+              className="group flex w-full items-start gap-3 rounded-xl border border-border bg-card p-4 text-left transition-[background,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] hover:border-aurora-violet/40 hover:bg-accent"
             >
-              <span className="mt-0.5 text-aurora-green transition-transform group-hover:translate-x-0.5">
+              <span className="mt-0.5 text-aurora-violet transition-transform group-hover:translate-x-0.5">
                 →
               </span>
               <span className="text-[14px] leading-relaxed text-foreground/85">
@@ -447,7 +447,7 @@ function MessageRow({
     <article className="flex flex-col gap-3">
       <header className="flex items-center gap-3">
         <span
-          className={`eyebrow ${isWriter ? "text-muted-foreground" : "text-aurora-green"}`}
+          className={`eyebrow ${isWriter ? "text-muted-foreground" : "text-aurora-violet"}`}
         >
           {isWriter ? "Writer" : "Companion"}
         </span>
@@ -479,7 +479,12 @@ function MessageRow({
       )}
       {!message.content && streaming && (
         <div className="flex items-center gap-2 text-muted-foreground">
-          <span className="text-aurora-green pulse-dot text-base leading-none">●</span>
+          <span
+            className="text-aurora-green pulse-dot text-base leading-none"
+            aria-hidden
+          >
+            ●
+          </span>
           <span className="text-sm">Drafting</span>
         </div>
       )}
@@ -491,8 +496,8 @@ function AttachmentIcon({ kind }: { kind: Attachment["kind"] }) {
   if (kind === "pdf")
     return <FileType2 className="h-3.5 w-3.5 text-aurora-violet" strokeWidth={2.2} />;
   if (kind === "image")
-    return <ImageIcon className="h-3.5 w-3.5 text-sky-blue" strokeWidth={2.2} />;
-  return <FileText className="h-3.5 w-3.5 text-cool-grey" strokeWidth={2.2} />;
+    return <ImageIcon className="h-3.5 w-3.5 text-aurora-violet" strokeWidth={2.2} />;
+  return <FileText className="h-3.5 w-3.5 text-foreground/70" strokeWidth={2.2} />;
 }
 
 function AttachmentChip({
