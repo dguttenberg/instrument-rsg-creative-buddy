@@ -1,4 +1,4 @@
-# RSG Copywriting Companion
+# RSG Creative Copilot
 
 A working prototype of a conversational copywriting tool for the Rivers Casino & Resorts (RSG) creative team. Covers two properties: **Pittsburgh** and **Des Plaines**. Philadelphia, Schenectady, and Portsmouth are visible in the UI but disabled — those will come in a later pass.
 

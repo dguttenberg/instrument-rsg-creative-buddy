@@ -363,20 +363,20 @@ function Brand() {
       <Image
         src="/logos/dcp-logo-light.svg"
         alt="DCP"
-        width={48}
-        height={48}
+        width={64}
+        height={64}
         priority
         className="shrink-0"
       />
-      <div className="leading-[1.1]">
+      <div className="leading-[1.05]">
         <div className="eyebrow text-aurora-violet">
           Rivers Casino &amp; Resorts
         </div>
         <div
-          className="mt-0.5 text-[22px] tracking-[-0.01em]"
+          className="mt-1 text-[26px] tracking-[-0.01em]"
           style={{ fontFamily: MAGNETIK, fontWeight: 700 }}
         >
-          Copywriting companion
+          Creative copilot
         </div>
       </div>
     </div>
@@ -591,7 +591,7 @@ function MessageRow({
         <span
           className={`eyebrow ${isWriter ? "text-muted-foreground" : "text-aurora-violet"}`}
         >
-          {isWriter ? "Writer" : "Companion"}
+          {isWriter ? "Writer" : "Copilot"}
         </span>
         <span className="h-px flex-1 bg-border" />
       </header>

@@ -9,9 +9,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RSG copywriting companion",
+  title: "RSG creative copilot",
   description:
-    "On-brand copywriting companion for Rivers Casino & Resorts — Pittsburgh and Des Plaines.",
+    "On-brand creative copilot for Rivers Casino & Resorts — Pittsburgh, Des Plaines, Philadelphia, Schenectady, and Portsmouth.",
 };
 
 export default function RootLayout({
