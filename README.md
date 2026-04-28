@@ -51,7 +51,7 @@ After the first deploy, set `ANTHROPIC_API_KEY` in the Vercel project's Environm
 
 A handful of representative briefs are documented in PART 3 of [`HANDOVER.md`](./HANDOVER.md). Try one of:
 
-- `PGH, March Mystery Gift Card, postcard 9x6 + kiosk tile + digital 1280x720`
-- `DP, May Cinco de Mayo Slot Play, postcard front + back`
+- `Pittsburgh, March Mystery Gift Card, postcard 9x6 + kiosk tile + digital 1280x720`
+- `Des Plaines, May Cinco de Mayo Slot Play, postcard front + back`
 - `Pittsburgh — looking for a take on the NFL Draft. April 22-25, Pittsburgh hosts.`
 - `Des Plaines, Hugo's Frog Bar dining offer DM for Mother's Day. Self-mailer.`

@@ -15,42 +15,39 @@ type ChatMessage = {
 
 const PROPERTIES: {
   id: Property;
-  short: string;
   label: string;
   voice: string;
 }[] = [
   {
     id: "pittsburgh",
-    short: "PGH",
     label: "Pittsburgh",
     voice:
       "Platform-led. Memphis Q1/Q2 visual system. Functional, transactional headlines with seasonal puns when the moment permits.",
   },
   {
     id: "des_plaines",
-    short: "DP",
     label: "Des Plaines",
     voice:
       "Pun-on-mechanic headlines. Photography-led visuals. Workhorse phrase library. Trilingual Lunar New Year practice.",
   },
 ];
 
-const COMING_SOON: { id: string; short: string; label: string }[] = [
-  { id: "philadelphia", short: "PHL", label: "Philadelphia" },
-  { id: "schenectady", short: "SCH", label: "Schenectady" },
-  { id: "portsmouth", short: "POR", label: "Portsmouth" },
+const COMING_SOON: { id: string; label: string }[] = [
+  { id: "philadelphia", label: "Philadelphia" },
+  { id: "schenectady", label: "Schenectady" },
+  { id: "portsmouth", label: "Portsmouth" },
 ];
 
 const EXAMPLES: Record<Property, string[]> = {
   pittsburgh: [
-    "PGH, March Mystery Gift Card. Postcard 9x6 + kiosk tile + digital 1280x720.",
+    "Pittsburgh, March Mystery Gift Card. Postcard 9x6 + kiosk tile + digital 1280x720.",
     "Pittsburgh — looking for a take on the NFL Draft. April 22-25, Pittsburgh hosts.",
-    "PGH, Forever Fun Hot Seat Drawings for April. Need digital slide and postcard.",
+    "Pittsburgh, Forever Fun Hot Seat Drawings for April. Need digital slide and postcard.",
   ],
   des_plaines: [
-    "DP, May Cinco de Mayo Slot Play. Postcard front + back.",
+    "Des Plaines, May Cinco de Mayo Slot Play. Postcard front + back.",
     "Des Plaines, Hugo's Frog Bar dining offer DM for Mother's Day. Self-mailer.",
-    "DP, April Slot Core DM. Standard recurring slot play with personalization fields.",
+    "Des Plaines, April Slot Core DM. Standard recurring slot play with personalization fields.",
   ],
 };
 
@@ -311,7 +308,7 @@ function Brand() {
   return (
     <div className="flex items-center gap-3">
       <Image
-        src="/logos/dcp-logo-dark.svg"
+        src="/logos/dcp-logo-light.svg"
         alt="DCP"
         width={36}
         height={36}
@@ -367,24 +364,14 @@ function PropertySelector({
             key={p.id}
             onClick={() => onChange(p.id)}
             title={p.voice}
-            className={`group inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 transition-[background,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition-[background,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
               selected
                 ? "bg-aurora-green text-midnight"
                 : "border border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground"
             }`}
+            style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
           >
-            <span
-              className={`text-xs ${selected ? "" : "text-muted-foreground"}`}
-              style={{ fontFamily: "var(--font-mono)", letterSpacing: "0.06em" }}
-            >
-              {p.short}
-            </span>
-            <span
-              className="text-[13px]"
-              style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
-            >
-              {p.label}
-            </span>
+            <span className="text-[13px]">{p.label}</span>
           </button>
         );
       })}
@@ -393,20 +380,10 @@ function PropertySelector({
           key={p.id}
           disabled
           title="Coming soon"
-          className="inline-flex items-center gap-2 rounded-full border border-dashed border-border px-3.5 py-1.5 opacity-50"
+          className="inline-flex items-center gap-2 rounded-full border border-dashed border-border px-4 py-1.5 opacity-45"
+          style={{ fontFamily: MAGNETIK, fontWeight: 500 }}
         >
-          <span
-            className="text-xs line-through"
-            style={{ fontFamily: "var(--font-mono)", letterSpacing: "0.06em" }}
-          >
-            {p.short}
-          </span>
-          <span
-            className="text-[13px]"
-            style={{ fontFamily: MAGNETIK, fontWeight: 500 }}
-          >
-            {p.label}
-          </span>
+          <span className="text-[13px]">{p.label}</span>
           <span className="eyebrow text-muted-foreground text-[10px]">
             Soon
           </span>
@@ -425,73 +402,35 @@ function EmptyState({
 }) {
   const examples = EXAMPLES[property.id];
   return (
-    <div className="flex flex-col gap-12">
-      <div>
-        <div className="eyebrow text-aurora-violet">Active</div>
-        <h1
-          className="mt-3 text-balance text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[56px]"
-          style={{ fontFamily: MAGNETIK, fontWeight: 900 }}
-        >
-          What are we writing for{" "}
-          <span className="text-aurora-green">{property.label}</span>.
-        </h1>
-        <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/75">
-          {property.voice}
-        </p>
-      </div>
+    <div className="flex flex-col gap-6">
+      <div className="eyebrow text-aurora-violet">How to start</div>
+      <p
+        className="max-w-2xl text-[17px] leading-relaxed text-foreground/80"
+        style={{ fontFamily: MAGNETIK, fontWeight: 400 }}
+      >
+        Paste a Workfront ticket, drop a PDF, list deliverables, or just type
+        what you need. We&rsquo;ll propose three to five directions tuned to{" "}
+        {property.label}&rsquo;s voice and ask for context only when something
+        material is missing.
+      </p>
 
-      <div>
-        <div className="eyebrow text-aurora-violet mb-4">How to start</div>
-        <p className="max-w-xl text-base leading-relaxed text-foreground/75">
-          Paste a Workfront ticket, drop a PDF, list deliverables, or just type
-          what you need. We&rsquo;ll propose 3&ndash;5 directions calibrated to{" "}
-          {property.label}&rsquo;s voice and ask for context only when something
-          material is missing.
-        </p>
-      </div>
-
-      <div>
-        <div className="eyebrow text-aurora-violet mb-4">Try one</div>
-        <ul className="flex flex-col gap-3">
-          {examples.map((ex) => (
-            <li key={ex}>
-              <button
-                onClick={() => onPick(ex)}
-                className="group flex w-full items-start gap-3 rounded-xl border border-border bg-card p-5 text-left transition-[background,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] hover:border-aurora-green/40 hover:bg-accent"
-              >
-                <span className="mt-0.5 text-aurora-green">→</span>
-                <span className="text-[14px] leading-relaxed text-foreground/85">
-                  {ex}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 border-t border-border pt-8 sm:grid-cols-3">
-        <Hint
-          title="Attach"
-          body="Drop a PDF, image, or .txt anywhere on the page. The companion reads it directly."
-        />
-        <Hint
-          title="Iterate"
-          body="Ask for revisions, tighter pun work, format variants, or a different angle."
-        />
-        <Hint
-          title="No memory"
-          body="Each session is fresh. Closing the browser starts over."
-        />
-      </div>
-    </div>
-  );
-}
-
-function Hint({ title, body }: { title: string; body: string }) {
-  return (
-    <div>
-      <div className="eyebrow text-aurora-violet">{title}</div>
-      <p className="mt-2 text-sm leading-relaxed text-foreground/70">{body}</p>
+      <ul className="mt-2 flex flex-col gap-2">
+        {examples.map((ex) => (
+          <li key={ex}>
+            <button
+              onClick={() => onPick(ex)}
+              className="group flex w-full items-start gap-3 rounded-xl border border-border bg-card p-4 text-left transition-[background,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] hover:border-aurora-green/50 hover:bg-accent"
+            >
+              <span className="mt-0.5 text-aurora-green transition-transform group-hover:translate-x-0.5">
+                →
+              </span>
+              <span className="text-[14px] leading-relaxed text-foreground/85">
+                {ex}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
