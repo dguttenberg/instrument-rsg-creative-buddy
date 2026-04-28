@@ -181,10 +181,266 @@ When the team has had time and a good seasonal hook, Des Plaines has produced:
 The phrase library is doing structural work in DP that no other property has built. It's an asset other properties don't have.
 `;
 
-export const VOICE_REFERENCES: Record<
-  "pittsburgh" | "des_plaines",
-  string
-> = {
+export const PHILADELPHIA_VOICE_REFERENCE = `# Rivers Casino Philadelphia — Voice Reference
+
+*Distilled from five months of finished creative work (Nov 2025 - Mar 2026). This is what the property sounds like, made explicit.*
+
+## What Philadelphia sounds like in one paragraph
+
+Philadelphia operates in **three registers and is the platform incubator across the RSG corpus**. The property's voice mode is broader than any other property's because it runs simultaneously in: sports-partnership voice for Flyers co-brand pieces (hockey-language puns like "Power Play" and "Break Away" tied to gaming offers), civic / awareness voice for awareness-occasion work (culturally specific — Adinkra-pattern textile imagery for Black History Month, not generic), and platform-incubator voice for original concept work. Mystery Fridays originated here. Frosty Fortune originated here. Spring Bling originated here. Pittsburgh's "Take It or Risk It" is the riff on Philly's Mystery Fridays.
+
+## The Flyers partnership
+
+Philadelphia is a **"Proud Partner of the Philadelphia Flyers."** This is a permanent co-brand on multiple pieces. Flyers orange-black palette appears alongside Rivers gold; "PROUD PARTNER OF THE PHILADELPHIA FLYERS" tagline always present on co-brand work. Hockey terminology (power play, break away, hat trick) is fair game **only** when the Flyers context is present — never on non-Flyers pieces.
+
+## Philadelphia's named platforms
+
+**Mystery Fridays.** The original (Pittsburgh runs the riff). Yellow exaggerated question mark + blue type lockup. "Win up to $10,000 Free Slot Play!" Recurs monthly.
+
+**Frosty Fortune.** Winter tentpole, Philly-original, no equivalent at other properties. Distressed icy-blue type with snowflake accents. "WIN YOUR SHARE OF OVER $50,000 IN CASH AND PRIZES!"
+
+**Spring Bling.** April spring tentpole. Purple/yellow drop-shadow type with gemstone graphic. "$100,000 SPRING BLING." Tagline: "A new season of fun awaits."
+
+**Forever Fun Club** (rebranded from "Young at Heart 50+" Jan→Feb 2026, now 55+). Same yellow + blue slot-reel-style mark as Pittsburgh and Portsmouth. Cross-property platform.
+
+**Tier Match.** Direct value-prop, no pun. "WHATEVER YOUR TIER, WE'LL MATCH IT."
+
+**Experienced Dealer Recruitment.** Pun craft on table-game vocabulary. "DEAL LIKE A PRO? GET REWARDED." / "WE VALUE WHAT YOU BRING TO THE TABLE."
+
+**$10 Blackjack OOH (Flyers co-brand).** "The Ultimate Power Play. $10 Blackjack." / "Break Away with $10 Blackjack."
+
+**Black Premier Renewal Party.** Tier-distinct work in **Art Deco luxury-formal register**. "JOIN US FOR AN / EVENING OF ELEGANCE / spellbinding entertainment / lavish buffet." Silver/black palette. **No Rivers gold.**
+
+**Lunar New Year Mailer.** Trilingual (English / Chinese / Vietnamese). Year of the Horse iconography. Cantonese-language entertainment booking integrated.
+
+**Awareness Slides for Social.** Set of 5 social tiles (Presidents Day, Valentine's, Black History Month, MLK Day, Lunar New Year). Visual changes per occasion — never generic. Black History Month uses Adinkra textile patterns. MLK uses B&W silhouette.
+
+**Rio Certificate Event.** "Even More VIP / Turn winter chills into Vegas thrills."
+
+## Philadelphia's phrase library
+
+Moderate — broader than Pittsburgh's, narrower than Des Plaines'. The phrases that recur:
+
+- "Win up to $X Free Slot Play" (Mystery Fridays)
+- "Whatever your tier, we'll match it" (Tier Match)
+- "Power Play" / "Break Away" (Flyers co-brand only)
+- "PROUD PARTNER OF THE PHILADELPHIA FLYERS" (co-brand lockup)
+- "Turn winter chills into Vegas thrills" (Rio Cert)
+- "A new season of fun awaits" (Spring Bling)
+
+## Local hooks Philadelphia can credibly invoke
+
+- **Philadelphia Flyers** — formal "Proud Partner" co-brand. Hockey terminology only on co-brand pieces.
+- **The Xfinity Mobile Arena** — venue partnership context.
+- **Philadelphia / Center City regional positioning** when relevant.
+- **Trilingual Lunar New Year audience** — Cantonese-language entertainment integrated.
+- **Awareness occasions handled with cultural specificity** — never generic stock imagery.
+
+## What Philadelphia doesn't do
+
+- **Hockey-language puns outside the Flyers co-brand context.** The hockey terminology only works when the partnership is present.
+- **Pittsburgh-style platform-and-system functional copy as the default.** Philadelphia has more headline craft, particularly on partnership and concept work.
+- **Self-generated translations.** Lunar New Year work is trilingual; flag that translation is needed.
+- **Rivers gold on Black Premier work.** Luxury-formal register is silver/black only.
+- **Conflating "Mystery Fridays" with "Take It or Risk It."** Philly runs Mystery Fridays. Pittsburgh runs the riff.
+- **Em dashes.** Not in the brand's punctuation vocabulary.
+- **Parallel declarative rhythm.** ("Spin the reels. Win the prize. Make memories.") The corpus uses single fragments, comma-stitched phrases, question-pairs, or imperatives instead.
+
+## Where Philadelphia's craft ceiling has been
+
+When the team has time and a good hook, Philadelphia produces:
+
+- "The Ultimate Power Play. $10 Blackjack." (Flyers co-brand)
+- "Break Away with $10 Blackjack." (Flyers co-brand)
+- "Whatever your tier, we'll match it." (Tier Match)
+- "Deal like a pro?" / "We value what you bring to the table." (Dealer recruitment)
+- The trilingual Year of the Horse / Cantonese-entertainment integrated work
+- The culturally specific awareness slides (Adinkra for Black History Month, B&W silhouette for MLK)
+- The Black Premier Art Deco luxury-formal register
+
+Philadelphia's ceiling is high in three different directions. The platform-incubator role gives the property its own craft DNA — when something works at Philly, it often becomes the cross-property standard.
+`;
+
+export const SCHENECTADY_VOICE_REFERENCE = `# Rivers Casino Schenectady — Voice Reference
+
+*Distilled from five months of finished creative work (Nov 2025 - Mar 2026). This is what the property sounds like, made explicit.*
+
+## What Schenectady sounds like in one paragraph
+
+Schenectady is **sub-brand-rich, hotel-leveraged, civic-anchored, and locally-named**. The property has more named platforms than any other in the RSG corpus (~25 in five months). The voice splits cleanly into two modes: direct value-prop for gaming-basics work (the Evergreen Gaming Banner reads "BACCARAT: MACAU STYLE / $25-$10,000 LIMITS" — no pun), and pun-heavy for hotel and seasonal moments ("Lucky Welcome" for St. Patrick, "Eggcellent Offer" for Easter, "March Mayhem" for March Madness, "Sweetheart Sip" for Valentine). The hotel asset is the recurring punning surface; civic work is treated formally with named local recipients.
+
+## The Landing Hotel as a recurring canvas
+
+Schenectady's distinctive pattern: **hotel-rate seasonal platforms refresh with new pun + new mark + new visual every season but stay structurally identical.** Sweetheart Sip Bundle (Valentine), Lucky Welcome (St. Patrick), March Mayhem (March Madness), Eggcellent Offer (Easter). Other RSG properties don't run this hotel-platform pattern.
+
+## Schenectady's named platforms
+
+The longest platform inventory in the RSG corpus.
+
+**Hotel-rate seasonal platforms (recurring punning surface):** Sweetheart Sip Bundle / Lucky Welcome / March Mayhem / Eggcellent Offer.
+
+**Kiosk-game and drawing platforms:** $10,000 Sweetheart Slot Tournament, $5,000 Red Letter Kiosk Game (Lunar New Year tie-in), $10,000 Hugs Kisses & Cash, $15,000 Pot of Gold Progressive (St. Patrick), $25,000 April Showers Drawing (cross-property with DP), $25,000 Bloomin' Progressive Jackpot, Galentine's Day Luxury Giveaway, Trunkloads of Prizes (Goldstein Auto Group co-brand).
+
+**Recurring promotional mechanics:** $1 Progressive Table Games Promotion, Blackjack Happy Hour, Tax Day 5x Multiplier.
+
+**Civic / community sub-brands:**
+- **Rivers Gives** — annual community impact program. Specific dollar amounts. Named local recipients (City Mission of Schenectady, Schenectady Police Department, Interfaith Partnership for the Homeless, YWCA NorthEastern NY's STRIVE program). Core values: "Fun. Service. Integrity. Respect."
+- **Rivers Salutes** — Military Mondays. Veterans/military sub-brand.
+- **Ante Up for Autism** — charity poker tournament tied to Autism Society.
+
+**Poker tournament naming portfolio (~9 named tournaments):** Rivers Deepstack NLH, Monday Night Showdown, Seniors 50+, Sunday Survivor, Uber Stack Turbo, One & Done, Green Chip Bounty, Rivers Revival, Monster Stack Rush, "The Casual," NLH Midnight Madness. Each is a recurring tournament with its own named identity.
+
+**Restaurant work:** Easter Dinner at Duke's; Cinco de Mayo Drink Specials across all three dining outlets (Duke's, Van Slyck's, The Landing Hotel).
+
+**Cross-property platforms participating in:** Gift Express, April Showers Drawing (with DP), Big Game 5x Point Multiplier (with POR), Year of the Horse Lunar New Year visual (with DP and PHL — but Schenectady is **monolingual**, English-only).
+
+**Inactive / win-back:** "Your favorite games miss you!" front headline. Slot vs Table interior body copy variants.
+
+## Schenectady's phrase library
+
+Mid-sized. The phrases that recur:
+
+- "Your favorite games miss you!" (inactive mailer)
+- "Your chance to win..." (kiosk games)
+- "Win your share of..." (drawings)
+- "Enjoy rates starting at..." (hotel rate)
+- "ENJOY YOUR BONUS..." (templated DM front)
+- "Capital Region" / "Mohawk Harbor" / "Mohawk River" (place naming)
+- "Fun. Service. Integrity. Respect." (Rivers Gives core values)
+
+## Local hooks Schenectady can credibly invoke
+
+- **Capital Region** — explicit geographic naming. "Throughout the Capital Region."
+- **Mohawk River, Mohawk Harbor** — specific property location reference.
+- **Upstate New York** as broader regional positioning.
+- **Specific local organizations** named in civic copy (City Mission of Schenectady, Schenectady Police Department, Interfaith Partnership for the Homeless, YWCA NorthEastern NY's STRIVE, Autism Society).
+- **Goldstein Auto Group** — local auto dealer co-brand.
+- **March Madness** — March Mayhem hotel rate uses NCAA basketball window timing.
+
+## What Schenectady doesn't do
+
+- **Avoid local-place references.** Capital Region geography is a Schenectady asset and should appear in copy when relevant.
+- **Civic copy in a glib or commercial register.** Rivers Gives and Rivers Salutes use formal corporate register with named recipients.
+- **Self-generated translations.** Lunar New Year work at Schenectady is monolingual (English-only).
+- **Conflating the hotel-rate platforms.** Sweetheart Sip is Valentine, Lucky Welcome is St. Patrick, March Mayhem is March Madness, Eggcellent Offer is Easter. Not interchangeable.
+- **Puns on gaming-basics work.** Direct value-prop copy is right for Evergreen Gaming Banner and progressive table games promo.
+- **Pittsburgh's quarterly visual theme (Memphis).** Schenectady's visual approach is per-platform, not quarterly-themed.
+- **Em dashes.** Not in the brand's punctuation vocabulary.
+- **Parallel declarative rhythm.** ("Spin the reels. Win the prize. Make memories.") The corpus uses single fragments, comma-stitched phrases, question-pairs, or imperatives instead.
+
+## Where Schenectady's craft ceiling has been
+
+When the team has time and a good hook, Schenectady produces:
+
+- "Your favorite games miss you!" (inactive mailer — distinctive shell unique to SCH)
+- "March Mayhem" (March Madness hotel rate)
+- "Eggcellent Offer" (Easter hotel rate)
+- "Sweetheart Sip Bundle" (Valentine hotel rate)
+- "Lucky Welcome" (St. Patrick hotel rate)
+- The Rivers Gives 2025 Community Impact Report — specific dollar amounts, named recipients, core-values articulation
+- The Bloomin' Progressive Jackpot retro-70s daisy-O treatment
+- The poker tournament naming portfolio's range
+
+Schenectady's ceiling is in scope — the property runs more parallel platform identities than any other and lifts the local-and-civic register higher than the corpus shows elsewhere.
+`;
+
+export const PORTSMOUTH_VOICE_REFERENCE = `# Rivers Casino Portsmouth — Voice Reference
+
+*Distilled from five months of finished creative work (Nov 2025 - Mar 2026). This is what the property sounds like, made explicit.*
+
+## What Portsmouth sounds like in one paragraph
+
+Portsmouth is **concept-platform-recurrence with strong thematic range**. The voice splits cleanly into three modes: pun-on-mechanic for the recurring monthly kiosk-game platforms (Lucky Round Scratcher → Cupid Hearts → Buckaroo Bonanza → Bunny Bucks Matcher Game) where each month gets a new themed treatment with a punned headline tied to the mechanic plus the seasonal moment; direct value-prop for flagship drawings ($500,000 Jackpot Drawing); and standout one-off concept work when a piece allows it. The Water Cooler Wrap ("Free liquid assets / Good luck H2O") is the strongest single piece of copy in the entire RSG corpus.
+
+## The monthly kiosk-game template (the cleanest pattern in the corpus)
+
+Every month, a new kiosk game refreshes with **new theme + new mark + new pun headline**, but the same underlying mechanic stays constant: "Earn 250 Reward Points to play... and win up to $5,000 Free Slot Play / Wednesdays in [Month] / Rush Rewards members can play up to two times." Each month's pun ties specifically to the seasonal theme + the mechanic.
+
+- **January: Lucky Round Scratcher.** "Start the new year off winning!"
+- **February: Cupid Hearts Kiosk Game.** "Fall in love with winning!"
+- **March: Buckaroo Bonanza.** Western theme. "Hold on to your hat!" / "Wrangle up 250 Reward Points to play..."
+- **April: Bunny Bucks Matcher Game.** "Hop into big winnings!"
+
+## Portsmouth's named platforms
+
+**Recurring monthly kiosk-game template** (above) — the property's strongest asset.
+
+**$500,000 Jackpot Drawing.** Property flagship. Recurring monthly. The largest top-line drawing in the RSG corpus. "Spin the wheel to win a share of up to $500,000 Free Slot Play! / Center of the Casino Floor."
+
+**8 Krazy Nights** (NYE countdown, December 23-30). Custom mark — gold dimensional "8" with disco ball. Each day has its own micro-named promo (HIDDEN TREASURES, REWARD POINT MULTIPLIER, SANTA'S JOLLY JACKPOT, GET WHEEL DRAWINGS, $10,000 HOT SEAT, $10,000 PUCK DROP, REINDEER REWARDS KIOSK GAME, 2X TIER POINT MULTIPLIER).
+
+**Power Hour Drawings** (March). "POWER UP YOUR PLAY!" / "POWER UP YOUR CHANCE AT $5,000 FREE SLOT PLAY!"
+
+**Monday Multiplier** (February). "MULTIPLY YOUR REWARD POINTS IN FEBRUARY!"
+
+**Forever Fun Club** (rebranded from "Young at Heart 55+" Jan→Feb 2026). Same yellow + blue slot-reel-style mark as Pittsburgh and Philadelphia. Cross-property platform.
+
+**Lunar New Year (Year of the Horse / Lucky Lantern).** **Distinct visual treatment** from DP/PHL/SCH — uses Chinese lanterns instead of the gold-on-vermillion Year of the Horse iconography. "CLAIM YOUR LUCKY $2 BILL FOR A CHANCE AT $100 FREE PLAY." Companion: Red Envelope Lucky Draw with $8,888 Free Slot Play (8 = lucky number in Chinese culture).
+
+**St Patty's Day Promo** (March). "St. Patty's Day / COME CHASE THE GOLD."
+
+**Rush to $1 Million** (cross-property with DP). Same diamond mark.
+
+**Gift Express** (cross-property with PGH/PHL/SCH). Different gift mixes per cycle.
+
+**Big Game 5x Point Multiplier** (Super Bowl Sunday, shared with SCH).
+
+**Standout one-off — Water Cooler Wrap.** Pure contextual pun. Two-panel alternation: "Free liquid assets." / "Good luck H2O." The strongest single piece of copy in the RSG corpus. Demonstrates the property's ceiling for craft when a moment allows it.
+
+## Portsmouth's phrase library
+
+Anchored in the kiosk-game template. The phrases that recur:
+
+- "Earn 250 Reward Points to play..." (kiosk-game template)
+- "Win up to $5,000 Free Slot Play!" (kiosk-game template)
+- "Wednesdays in [Month]" (kiosk-game cadence)
+- "Rush Rewards members can play up to two times" (template eligibility)
+- "Power up your..." (Power Hour)
+- "Spin the wheel..." ($500K Jackpot Drawing)
+- "Center of the Casino Floor" ($500K Jackpot Drawing location)
+
+## Local hooks Portsmouth can credibly invoke
+
+- The corpus shows **fewer explicit local-name references** than Schenectady or Pittsburgh. Portsmouth's signature is in concept platforms and thematic range, not place-naming.
+- **Lucky $2 bill** — culturally specific Lunar New Year reference (the $2 bill is considered lucky in some Chinese-American communities).
+- **$8,888** as Lunar New Year prize amount (8 = lucky number in Chinese culture).
+
+## What Portsmouth doesn't do
+
+- **Break the recurring kiosk-game template structure** unless the writer explicitly wants to. The monthly cadence and consistent mechanic are the property's strongest asset.
+- **Schenectady-style local-place naming.** Portsmouth's voice signature isn't in geography; it's in concept platforms and thematic range.
+- **Trilingual Lunar New Year copy.** Portsmouth is monolingual on LNY work (English-only) and uses lanterns rather than Year of the Horse iconography.
+- **Generic casino-pun headlines** for kiosk games. Each game's pun ties specifically to the seasonal theme + the mechanic ("Hop into big winnings!" works because of bunnies + Easter + winning, not just because hopping is a verb).
+- **Schenectady-register civic copy.** Portsmouth's corpus shows minimal civic work; writing in that register would invent a voice the property doesn't currently have.
+- **Em dashes.** Not in the brand's punctuation vocabulary.
+- **Parallel declarative rhythm.** ("Spin the reels. Win the prize. Make memories.") The corpus uses single fragments, comma-stitched phrases, question-pairs, or imperatives instead.
+
+## Where Portsmouth's craft ceiling has been
+
+When the team has time and a good hook, Portsmouth produces:
+
+- "Free liquid assets." / "Good luck H2O." (Water Cooler Wrap — the strongest single piece of copy in the RSG corpus)
+- "Hop into big winnings!" (Bunny Bucks Matcher Game — Easter)
+- "Hold on to your hat!" / "Wrangle up 250 Reward Points..." (Buckaroo Bonanza — western)
+- "Fall in love with winning!" (Cupid Hearts — Valentine)
+- "POWER UP YOUR PLAY!" (Power Hour Drawings)
+- The "$2 bill / $8,888" cultural craft on Lunar New Year (lanterns rather than Year of the Horse)
+- 8 Krazy Nights NYE countdown structure (each day with its own micro-named promo)
+
+Portsmouth's ceiling is in **thematic range and template-bound craft**. The recurring kiosk-game pattern is the property's strongest creative system; its peak moments come from the monthly refresh discipline plus the occasional standout concept piece (Water Cooler Wrap) when a moment allows it.
+`;
+
+export type PropertyId =
+  | "pittsburgh"
+  | "des_plaines"
+  | "philadelphia"
+  | "schenectady"
+  | "portsmouth";
+
+export const VOICE_REFERENCES: Record<PropertyId, string> = {
   pittsburgh: PITTSBURGH_VOICE_REFERENCE,
   des_plaines: DES_PLAINES_VOICE_REFERENCE,
+  philadelphia: PHILADELPHIA_VOICE_REFERENCE,
+  schenectady: SCHENECTADY_VOICE_REFERENCE,
+  portsmouth: PORTSMOUTH_VOICE_REFERENCE,
 };

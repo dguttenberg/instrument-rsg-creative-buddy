@@ -15,7 +15,12 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import { readFileAsAttachment, formatBytes, type Attachment } from "@/lib/files";
 import { VOICE_REFERENCES } from "@/lib/voice-references";
 
-type Property = "pittsburgh" | "des_plaines";
+type Property =
+  | "pittsburgh"
+  | "des_plaines"
+  | "philadelphia"
+  | "schenectady"
+  | "portsmouth";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -40,12 +45,24 @@ const PROPERTIES: {
     voice:
       "Pun-on-mechanic headlines. Photography-led visuals. Workhorse phrase library. Trilingual Lunar New Year practice.",
   },
-];
-
-const COMING_SOON: { id: string; label: string }[] = [
-  { id: "philadelphia", label: "Philadelphia" },
-  { id: "schenectady", label: "Schenectady" },
-  { id: "portsmouth", label: "Portsmouth" },
+  {
+    id: "philadelphia",
+    label: "Philadelphia",
+    voice:
+      "Three registers. Flyers co-brand hockey-language puns, civic awareness work, and original platform incubator. Mystery Fridays, Frosty Fortune, Spring Bling all originated here.",
+  },
+  {
+    id: "schenectady",
+    label: "Schenectady",
+    voice:
+      "Sub-brand-rich, hotel-leveraged, civic-anchored, locally-named. The Landing Hotel as recurring punning canvas. Capital Region geography. Rivers Gives civic register.",
+  },
+  {
+    id: "portsmouth",
+    label: "Portsmouth",
+    voice:
+      "Concept-platform-recurrence with thematic range. Monthly kiosk-game template (Lucky Round Scratcher → Cupid Hearts → Buckaroo Bonanza → Bunny Bucks). $500K Jackpot Drawing flagship.",
+  },
 ];
 
 const EXAMPLES: Record<Property, string[]> = {
@@ -58,6 +75,21 @@ const EXAMPLES: Record<Property, string[]> = {
     "Des Plaines, May Cinco de Mayo Slot Play. Postcard front + back.",
     "Des Plaines, Hugo's Frog Bar dining offer DM for Mother's Day. Self-mailer.",
     "Des Plaines, April Slot Core DM. Standard recurring slot play with personalization fields.",
+  ],
+  philadelphia: [
+    "Philadelphia, March Mystery Fridays. Postcard 9x6 + kiosk tile.",
+    "Philadelphia, $10 Blackjack OOH for the Flyers co-brand. Hockey-language pun headline.",
+    "Philadelphia, Spring Bling drawing for April. Need digital slide.",
+  ],
+  schenectady: [
+    "Schenectady, March Mayhem hotel rate. Need self-mailer.",
+    "Schenectady, Rivers Salutes Military Mondays for May. Postcard.",
+    "Schenectady, $25,000 Bloomin' Progressive Jackpot for May. Postcard front + back.",
+  ],
+  portsmouth: [
+    "Portsmouth, May kiosk game (garden / spring theme). Need pun headline + body.",
+    "Portsmouth, $500,000 Jackpot Drawing for July. Standard recurring template.",
+    "Portsmouth, Rush to $1 Million spring DM. Front + interior copy.",
   ],
 };
 
@@ -409,20 +441,6 @@ function PropertySelector({
           </div>
         );
       })}
-      {COMING_SOON.map((p) => (
-        <button
-          key={p.id}
-          disabled
-          title="Coming soon"
-          className="inline-flex items-center gap-2 rounded-full border border-dashed border-border px-4 py-1.5 opacity-45"
-          style={{ fontFamily: MAGNETIK, fontWeight: 500 }}
-        >
-          <span className="text-[13px]">{p.label}</span>
-          <span className="eyebrow text-muted-foreground text-[10px]">
-            Soon
-          </span>
-        </button>
-      ))}
     </div>
   );
 }
@@ -734,12 +752,9 @@ function VoiceReferenceSheet({
     };
   }, [open, onClose]);
 
-  const propertyLabel =
-    property === "pittsburgh"
-      ? "Pittsburgh"
-      : property === "des_plaines"
-        ? "Des Plaines"
-        : "";
+  const propertyLabel = property
+    ? (PROPERTIES.find((p) => p.id === property)?.label ?? "")
+    : "";
   const content = property ? VOICE_REFERENCES[property] : "";
 
   return (

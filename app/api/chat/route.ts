@@ -19,15 +19,33 @@ type ClientMessage = {
   attachments?: ClientAttachment[];
 };
 
+type PropertyId =
+  | "pittsburgh"
+  | "des_plaines"
+  | "philadelphia"
+  | "schenectady"
+  | "portsmouth";
+
 type ChatRequest = {
-  property: "pittsburgh" | "des_plaines";
+  property: PropertyId;
   messages: ClientMessage[];
 };
 
-const PROPERTY_LABELS: Record<ChatRequest["property"], string> = {
+const PROPERTY_LABELS: Record<PropertyId, string> = {
   pittsburgh: "Rivers Casino Pittsburgh",
   des_plaines: "Rivers Casino Des Plaines",
+  philadelphia: "Rivers Casino Philadelphia",
+  schenectady: "Rivers Casino Schenectady",
+  portsmouth: "Rivers Casino Portsmouth",
 };
+
+const VALID_PROPERTIES = new Set<PropertyId>([
+  "pittsburgh",
+  "des_plaines",
+  "philadelphia",
+  "schenectady",
+  "portsmouth",
+]);
 
 const SUPPORTED_IMAGE_TYPES = new Set([
   "image/png",
@@ -106,7 +124,7 @@ export async function POST(req: NextRequest) {
 
   if (
     !body ||
-    (body.property !== "pittsburgh" && body.property !== "des_plaines") ||
+    !VALID_PROPERTIES.has(body.property) ||
     !Array.isArray(body.messages) ||
     body.messages.length === 0
   ) {
