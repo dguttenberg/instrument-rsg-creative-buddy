@@ -339,20 +339,21 @@ function Header({
   streaming: boolean;
 }) {
   return (
-    <header
-      className="sticky top-0 z-[var(--z-sticky)] border-b border-border bg-background/85 backdrop-blur-md"
-    >
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
-        <Brand />
-
-        <PropertySelector
-          active={active}
-          onChange={onChange}
-          onOpenVoiceRef={onOpenVoiceRef}
-        />
-
-        <div className="hidden items-center gap-4 lg:flex">
+    <header className="sticky top-0 z-[var(--z-sticky)] border-b border-border bg-background/85 backdrop-blur-md">
+      <div className="mx-auto w-full max-w-7xl px-8">
+        {/* Top row: brand + status */}
+        <div className="flex flex-col items-start gap-5 py-7 sm:flex-row sm:items-center sm:justify-between">
+          <Brand />
           <StatusBadge streaming={streaming} />
+        </div>
+
+        {/* Selector row */}
+        <div className="border-t border-border/60 py-4">
+          <PropertySelector
+            active={active}
+            onChange={onChange}
+            onOpenVoiceRef={onOpenVoiceRef}
+          />
         </div>
       </div>
     </header>
@@ -361,23 +362,24 @@ function Header({
 
 function Brand() {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-5">
       <Image
         src="/logos/dcp-logo-light.svg"
         alt="DCP"
-        width={36}
-        height={36}
+        width={64}
+        height={64}
         priority
+        className="shrink-0"
       />
-      <div className="leading-tight">
+      <div className="leading-[1.05]">
+        <div className="eyebrow text-aurora-violet">
+          Rivers Casino &amp; Resorts
+        </div>
         <div
-          className="text-[15px]"
+          className="mt-1 text-[26px] tracking-[-0.01em]"
           style={{ fontFamily: MAGNETIK, fontWeight: 700 }}
         >
           Copywriting companion
-        </div>
-        <div className="eyebrow text-aurora-violet">
-          Rivers Casino &amp; Resorts
         </div>
       </div>
     </div>
@@ -386,16 +388,21 @@ function Brand() {
 
 function StatusBadge({ streaming }: { streaming: boolean }) {
   return (
-    <div className="flex items-center gap-2 text-foreground/70">
+    <div className="flex items-center gap-3 text-foreground/80">
       <span
         className={`text-aurora-green text-base leading-none ${streaming ? "pulse-dot" : ""}`}
         aria-hidden
       >
         ●
       </span>
-      <span className="text-sm">{streaming ? "Drafting" : "Ready"}</span>
-      <span className="mx-2 h-3 w-px bg-border" />
-      <span className="text-xs text-muted-foreground">
+      <span
+        className="text-[14px]"
+        style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
+      >
+        {streaming ? "Drafting" : "Ready"}
+      </span>
+      <span className="h-4 w-px bg-border" />
+      <span className="font-mono text-[11px] text-muted-foreground">
         claude-sonnet-4-6
       </span>
     </div>
@@ -412,31 +419,31 @@ function PropertySelector({
   onOpenVoiceRef: (p: Property) => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="eyebrow text-aurora-violet">Property</span>
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <span className="eyebrow text-aurora-violet mr-1">Property</span>
       {PROPERTIES.map((p) => {
         const selected = p.id === active;
         return (
-          <div key={p.id} className="inline-flex items-center gap-1">
+          <div key={p.id} className="inline-flex items-center gap-1.5">
             <button
               onClick={() => onChange(p.id)}
               title={p.voice}
-              className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition-[background,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+              className={`inline-flex items-center gap-2 rounded-full px-5 py-2 transition-[background,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-standard)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                 selected
                   ? "bg-aurora-green text-midnight"
                   : "border border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground"
               }`}
               style={{ fontFamily: MAGNETIK, fontWeight: 600 }}
             >
-              <span className="text-[13px]">{p.label}</span>
+              <span className="text-[14px]">{p.label}</span>
             </button>
             <button
               onClick={() => onOpenVoiceRef(p.id)}
               title={`View ${p.label} voice reference`}
               aria-label={`View ${p.label} voice reference`}
-              className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-aurora-violet hover:bg-accent hover:text-aurora-violet focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-aurora-violet hover:bg-accent hover:text-aurora-violet focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <BookOpen className="h-3.5 w-3.5" strokeWidth={2.2} />
+              <BookOpen className="h-4 w-4" strokeWidth={2.2} />
             </button>
           </div>
         );
