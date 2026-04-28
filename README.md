@@ -7,6 +7,7 @@ The encoded voice layer lives in [`SYSTEM_PROMPT.md`](./SYSTEM_PROMPT.md) (verba
 ## Stack
 
 - Next.js 16 (App Router) + TypeScript + Tailwind v4
+- DCP brand system (Magnetik typography, Aurora Green/Violet on Midnight, sentence case + headline period). Mode B / standalone; tokens and `@font-face` live in `app/globals.css`, fonts in `public/fonts/magnetik/`, DCP logo in `public/logos/`.
 - `@anthropic-ai/sdk` calling `claude-sonnet-4-6`
 - System prompt cached via Anthropic's prompt caching (5-minute TTL); the active property is injected into the first user turn so the cached prefix stays byte-identical across requests
 - Streaming response from API route to client via `ReadableStream`
@@ -42,7 +43,8 @@ After the first deploy, set `ANTHROPIC_API_KEY` in the Vercel project's Environm
 ## How it works
 
 - **Property selector** in the header. Switching properties mid-conversation prompts a confirm and resets the chat.
-- **Chat** is a single endpoint — `POST /api/chat` — that takes `{ property, messages }` and streams plain text back. The server prepends `Active property: <Pittsburgh|Des Plaines>` to the first user message so the system prompt itself can stay byte-identical (and cache-eligible) across properties and across conversations.
+- **File attachments**: drag a PDF, image (PNG/JPG/GIF/WebP), or `.txt`/`.md` anywhere on the page, or click the paperclip in the composer. PDFs and images are sent natively as document/image content blocks; text files are inlined. 12MB cap per file.
+- **Chat** is a single endpoint — `POST /api/chat` — that takes `{ property, messages }` (with optional `attachments[]` per user message) and streams plain text back. The server prepends `Active property: <Pittsburgh|Des Plaines>` to the first user message so the system prompt itself can stay byte-identical (and cache-eligible) across properties and across conversations.
 - **No memory across sessions** by design. Closing the browser starts fresh.
 
 ## Test briefs

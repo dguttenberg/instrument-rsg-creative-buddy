@@ -1,26 +1,225 @@
+/* ============================================================================
+   DCP Design Tokens — RSG Copywriting Companion
+   Adapted from dcp-design skill assets/tailwind-theme.css.
+   ============================================================================ */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------- Magnetik font faces ---------- */
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-Thin.otf") format("opentype"); font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-ExtraLight.otf") format("opentype"); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-Light.otf") format("opentype"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-Medium.otf") format("opentype"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-SemiBold.otf") format("opentype"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-Bold.otf") format("opentype"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-ExtraBold.otf") format("opentype"); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Magnetik"; src: url("/fonts/magnetik/Magnetik-Heavy.otf") format("opentype"); font-weight: 900; font-style: normal; font-display: swap; }
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------- Brand colors + shadow scale (overridable under .dark) ---------- */
+@theme {
+  --color-midnight:           #000531;
+  --color-aurora-green:       #20FE8F;
+  --color-aurora-green-hover: #17C574;
+  --color-cool-grey:          #E6E7E8;
+  --color-aurora-violet:      #545DFF;
+  --color-sky-blue:           #76BEFF;
+  --color-sunset-ember:       #FF8371;
+
+  --shadow-2xs: 1px 1px 0 rgb(0 0 0 / 0.05);
+  --shadow-xs:  1px 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm:  2px 2px 4px 0 rgb(0 0 0 / 0.10), 1px 1px 2px -1px rgb(0 0 0 / 0.10);
+  --shadow-md:  4px 4px 8px -1px rgb(0 0 0 / 0.10), 2px 2px 4px -2px rgb(0 0 0 / 0.10);
+  --shadow-lg:  8px 10px 18px -3px rgb(0 0 0 / 0.10), 4px 4px 8px -4px rgb(0 0 0 / 0.10);
+  --shadow-xl:  14px 18px 28px -5px rgb(0 0 0 / 0.10), 6px 8px 12px -6px rgb(0 0 0 / 0.10);
+  --shadow-2xl: 20px 28px 50px -12px rgb(0 0 0 / 0.25);
 }
 
+/* ---------- shadcn theme map + motion + z-index ---------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-magnetik: "Magnetik", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  --duration-fast: 100ms;
+  --duration-base: 150ms;
+  --duration-slow: 250ms;
+  --duration-slower: 350ms;
+  --duration-slowest: 500ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit:     cubic-bezier(0.4, 0, 1, 1);
+
+  --z-base: 0; --z-dropdown: 100; --z-sticky: 200; --z-overlay: 300;
+  --z-modal: 400; --z-popover: 500; --z-toast: 600; --z-tooltip: 700;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------- Color ramps + neutrals (runtime CSS vars) ---------- */
+:root {
+  --color-green-50:  #E8FFF2; --color-green-100: #C6FFDF; --color-green-200: #8BFFBE;
+  --color-green-300: #52FEA3; --color-green-400: #20FE8F; --color-green-500: #17C574;
+  --color-green-600: #0F9457; --color-green-700: #0B6F42; --color-green-800: #08502F; --color-green-900: #053220;
+
+  --color-violet-50:  #EEEFFF; --color-violet-100: #D9DBFF; --color-violet-200: #B5B9FF;
+  --color-violet-300: #8890FF; --color-violet-400: #545DFF; --color-violet-500: #3A44E8;
+  --color-violet-600: #2A33B8; --color-violet-700: #1F2688; --color-violet-800: #161B5E; --color-violet-900: #0D1038;
+
+  --color-sky-50:  #EEF7FF; --color-sky-100: #D8ECFF; --color-sky-200: #B5DAFF;
+  --color-sky-300: #93C9FF; --color-sky-400: #76BEFF; --color-sky-500: #4A9AE8;
+  --color-sky-600: #2F79BD; --color-sky-700: #205691; --color-sky-800: #143964; --color-sky-900: #0B2040;
+
+  --color-ember-50:  #FFF1EE; --color-ember-100: #FFDCD5; --color-ember-200: #FFB9AE;
+  --color-ember-300: #FF9E8D; --color-ember-400: #FF8371; --color-ember-500: #E05E4B;
+  --color-ember-600: #B84535; --color-ember-700: #8E3124; --color-ember-800: #621F16; --color-ember-900: #3A100A;
+
+  --color-neutral-0: #FFFFFF; --color-neutral-50: #F4F4F6; --color-neutral-100: #E6E7E8;
+  --color-neutral-200: #D0D2D8; --color-neutral-300: #A8ABB5; --color-neutral-400: #7A7D8A;
+  --color-neutral-500: #54576A; --color-neutral-600: #3A3C52; --color-neutral-700: #222440;
+  --color-neutral-800: #101335; --color-neutral-900: #000531;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+/* ---------- Light theme — DCP brand mapped onto shadcn tokens ---------- */
+:root {
+  --radius: 0.75rem;
+  --background: #FFFFFF;
+  --foreground: #000531;
+  --card: #FFFFFF;
+  --card-foreground: #000531;
+  --popover: #FFFFFF;
+  --popover-foreground: #000531;
+  --primary: #76BEFF;
+  --primary-foreground: #000531;
+  --secondary: #F4F4F6;
+  --secondary-foreground: #000531;
+  --muted: #F4F4F6;
+  --muted-foreground: #5B5D70;
+  --accent: #EEF0FF;
+  --accent-foreground: #545DFF;
+  --destructive: #FF8371;
+  --border: rgba(0, 5, 49, 0.08);
+  --input: rgba(0, 5, 49, 0.12);
+  --ring: #545DFF;
 }
+
+/* ---------- Dark theme ---------- */
+.dark {
+  --background: #000213;
+  --foreground: #FFFFFF;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-foreground: #FFFFFF;
+  --popover: #0A0A14;
+  --popover-foreground: #FFFFFF;
+  --primary: #20FE8F;
+  --primary-foreground: #000531;
+  --secondary: rgba(255, 255, 255, 0.06);
+  --secondary-foreground: #FFFFFF;
+  --muted: rgba(255, 255, 255, 0.04);
+  --muted-foreground: rgba(255, 255, 255, 0.58);
+  --accent: rgba(84, 93, 255, 0.16);
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF8371;
+  --border: rgba(255, 255, 255, 0.245);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #545DFF;
+
+  --shadow-2xs: 1px 2px 3px -1px rgb(0 5 49 / 0.5);
+  --shadow-xs:  2px 3px 6px -2px rgb(0 5 49 / 0.55);
+  --shadow-sm:  3px 5px 10px -3px rgb(0 5 49 / 0.6),  1px 2px 4px -2px rgb(0 5 49 / 0.4);
+  --shadow-md:  5px 8px 18px -5px rgb(0 5 49 / 0.65), 2px 3px 6px -3px rgb(0 5 49 / 0.45);
+  --shadow-lg:  10px 14px 28px -8px rgb(0 5 49 / 0.7), 4px 6px 10px -5px rgb(0 5 49 / 0.5);
+  --shadow-xl:  16px 22px 44px -12px rgb(0 5 49 / 0.75), 6px 10px 18px -8px rgb(0 5 49 / 0.55);
+  --shadow-2xl: 24px 32px 64px -16px rgb(0 5 49 / 0.85);
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; font-family: var(--font-mono); }
+}
+
+/* ---------- Tailwind v4 shadow rebind under .dark ---------- */
+@layer utilities {
+  .dark .shadow-2xs { --tw-shadow: var(--shadow-2xs); }
+  .dark .shadow-xs  { --tw-shadow: var(--shadow-xs); }
+  .dark .shadow-sm  { --tw-shadow: var(--shadow-sm); }
+  .dark .shadow     { --tw-shadow: var(--shadow-sm); }
+  .dark .shadow-md  { --tw-shadow: var(--shadow-md); }
+  .dark .shadow-lg  { --tw-shadow: var(--shadow-lg); }
+  .dark .shadow-xl  { --tw-shadow: var(--shadow-xl); }
+  .dark .shadow-2xl { --tw-shadow: var(--shadow-2xl); }
+}
+
+/* ---------- DCP utility classes ---------- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Scrollbar — slim, neutral */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); background-clip: padding-box; }
+
+::selection { background: var(--color-aurora-green); color: var(--color-midnight); }
+
+/* Status pulse for the live dot */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.pulse-dot { animation: pulse-soft 1.6s var(--ease-standard) infinite; }
+
+/* Streaming caret */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.caret {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background: var(--color-aurora-green);
+  vertical-align: -0.12em;
+  margin-left: 0.18em;
+  animation: blink 1s steps(1) infinite;
+}
+
+/* Drop overlay highlight */
+.drop-active { outline: 2px dashed var(--color-aurora-green); outline-offset: 4px; }
+
+/* Disable italics globally — DCP rule */
+em, i { font-style: normal; }

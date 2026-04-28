@@ -5,9 +5,18 @@ import { SYSTEM_PROMPT } from "@/lib/system-prompt";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
+type ClientAttachment = {
+  kind: "pdf" | "image" | "text";
+  name: string;
+  mediaType: string;
+  size: number;
+  data: string;
+};
+
 type ClientMessage = {
   role: "user" | "assistant";
   content: string;
+  attachments?: ClientAttachment[];
 };
 
 type ChatRequest = {
@@ -19,6 +28,62 @@ const PROPERTY_LABELS: Record<ChatRequest["property"], string> = {
   pittsburgh: "Rivers Casino Pittsburgh",
   des_plaines: "Rivers Casino Des Plaines",
 };
+
+const SUPPORTED_IMAGE_TYPES = new Set([
+  "image/png",
+  "image/jpeg",
+  "image/gif",
+  "image/webp",
+]);
+
+function buildUserContent(
+  msg: ClientMessage,
+  prefix: string,
+): string | Anthropic.ContentBlockParam[] {
+  const hasAttachments = !!msg.attachments && msg.attachments.length > 0;
+  if (!hasAttachments) {
+    return prefix ? `${prefix}${msg.content}` : msg.content;
+  }
+
+  const blocks: Anthropic.ContentBlockParam[] = [];
+
+  for (const att of msg.attachments!) {
+    if (att.kind === "pdf") {
+      blocks.push({
+        type: "document",
+        source: {
+          type: "base64",
+          media_type: "application/pdf",
+          data: att.data,
+        },
+        title: att.name,
+      });
+    } else if (att.kind === "image") {
+      const mediaType = SUPPORTED_IMAGE_TYPES.has(att.mediaType)
+        ? (att.mediaType as "image/png" | "image/jpeg" | "image/gif" | "image/webp")
+        : "image/png";
+      blocks.push({
+        type: "image",
+        source: {
+          type: "base64",
+          media_type: mediaType,
+          data: att.data,
+        },
+      });
+    } else if (att.kind === "text") {
+      blocks.push({
+        type: "text",
+        text: `Attached file: ${att.name}\n\n${att.data}`,
+      });
+    }
+  }
+
+  const trailingText = `${prefix}${msg.content}`.trim();
+  if (trailingText.length > 0) {
+    blocks.push({ type: "text", text: trailingText });
+  }
+  return blocks;
+}
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -35,7 +100,7 @@ export async function POST(req: NextRequest) {
   } catch {
     return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
       status: 400,
-      headers: { "content-type": "application/json" } ,
+      headers: { "content-type": "application/json" },
     });
   }
 
@@ -57,13 +122,14 @@ export async function POST(req: NextRequest) {
   // (cached) system prompt stays byte-identical across requests.
   const propertyLabel = PROPERTY_LABELS[body.property];
   const messages: Anthropic.MessageParam[] = body.messages.map((m, i) => {
-    if (i === 0 && m.role === "user") {
-      return {
-        role: "user",
-        content: `Active property: ${propertyLabel}\n\n${m.content}`,
-      };
+    if (m.role === "assistant") {
+      return { role: "assistant", content: m.content };
     }
-    return { role: m.role, content: m.content };
+    const prefix = i === 0 ? `Active property: ${propertyLabel}\n\n` : "";
+    return {
+      role: "user",
+      content: buildUserContent(m, prefix),
+    };
   });
 
   const stream = new ReadableStream<Uint8Array>({
